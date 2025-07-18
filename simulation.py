@@ -40,11 +40,6 @@ def cut_into_patches(curve: pd.Series, epsilon: float) -> list[pd.Series]:
     df = pd.DataFrame(curve)
     df['patch'] = np.floor(df.index / epsilon)
     return [group.values for _, group in df.groupby('patch')[column]]
-    # t = curve.index[-1]
-    # K = int(np.ceil(t / epsilon) + 1)
-    # a = np.arange(K) * epsilon
-    # b = (np.arange(K) + 1) * epsilon
-    # return [curve[(curve.index >= a[i]) & (curve.index < b[i])] for i in range(K)]
 
 
 @time_function
