@@ -1,0 +1,128 @@
+\documentclass{amsart}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsthm, amsmath, amssymb, amsfonts} % general mathmode commands
+\usepackage{bm} % for \bm
+\usepackage{stmaryrd} % for \nnearrow
+\usepackage{cancel} % for \cancel
+\usepackage{breqn} % automatic line breaks in equations
+\usepackage[margin=2.5cm]{geometry} % for page layout
+\usepackage{cancel} % for \cancel
+\usepackage{algorithm2e} % for algorithms
+\usepackage{bbm} % for \mathbbm{1}
+\usepackage{mathtools} % for \coloneq
+\usepackage{hyperref}
+\usepackage{nicefrac}
+\usepackage{float}
+\usepackage{biblatex}
+\usepackage{lipsum}
+\usepackage{placeins}
+\usepackage{booktabs}
+\usepackage{xcolor,colortbl}
+\usepackage{makecell}
+\RestyleAlgo{ruled}
+
+% \new theorems definition
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+
+\theoremstyle{definition}
+\newtheorem{definition}[section]{Definition}
+
+\theoremstyle{definition}
+\newtheorem{example}[section]{Example}
+\newtheorem{conjecture}[section]{Conjecture}
+
+\theoremstyle{remark}
+\newtheorem{remark}[section]{Remark}
+
+% \newcommand
+\DeclareMathOperator*{\argmax}{argmax}
+\DeclareMathOperator{\err}{Err}
+\DeclareMathOperator{\softmax}{softmax}
+\newcommand{\diff}{\mathrm{d}}
+\title{Continuous Stochastic Processes --- Exercise 2 --- Solution}
+\author{Mark Sverdlov}
+\date{June 2025}
+
+\begin{document}
+    \maketitle
+    \section{Exercise 1}
+    Let \(B_{t}\) be some Brownian motion. Let \(a,\,b\in \mathbb{R}\) be some numbers and define:
+    \begin{equation*}
+        X_{t} = B_{1} - \left( a+bt \right)B_{\frac{1}{1-t}}
+    \end{equation*}
+
+A necessary condition for \(X_{t}\) to be Brownian, is that for any \(0\leq t < 1\) we have \(\mathrm{Var}X_{t} = t\). We first note that \(\frac{1}{1-t} \geq 1\) and therefore \(B_{\frac{1}{1-t}}-B_{1}\) and \(B_{1}\)
+\begin{equation*}
+    \mathrm{Var}X_{t} = \mathrm{Var} \left(-\left(a+bt\right)\left(B_{\frac{1}{1-t}}-B_{1}\right)+\left(1-a-bt\right)B_{1}\right)=\left(a+bt\right)^{2}\left(\frac{1}{1-t}-1\right)+\left(1-a-bt\right)^{2}
+\end{equation*}
+
+
+We now suppose \(X_{t}\) is a Brownian motion. As we discussed above, that means in particular that for all \(0 < t \leq 1\) we have:
+\begin{equation*}
+    \left(a+bt\right)^{2}\left(\frac{1}{1-t}-1\right)+\left(1-a-bt\right)^{2} = t
+\end{equation*}
+which implies
+\begin{equation}
+    \label{eq:2}
+    \left(a-1\right)^{2}+\left(2ab+2a-2b-1\right)t+\left(b^{2}+2b\right)t^{2} = t \left(1-t\right)
+\end{equation}
+For all \(0<t\leq 1\). In other words, the polynomial \(\left(a-1\right)^{2}+\left(2ab+2a+2b-2\right)t+\left(b+1\right)^{2}t^{2}\) has infinite zeroes, and therefore is identically zero as a polynomial. In particular, \(a=1\) and \(b=-1\).
+
+We now want to show that for \(a=1\) and \(b=-1\), \(X_{t}\) is a Brownian motion. We do it by proving two auxiliary lemmas first:
+\begin{lemma}
+    Suppose \(B_{t}\) is a pre-Brownian motion, then \(X_{t}=tB_{\frac{1}{t}}\) is s pre-Brownian motion for \(t>0\).
+\end{lemma}
+\begin{proof}
+   First, it's clear that \(X_{t}\) is a Gaussian process, as a linear transformation of the Gaussian process \(B_{t}\). Then it's enough to calculate it's auto-covariance function:
+   \begin{equation*}
+       \mathrm{E}X_{t}X_{s} = ts \mathrm{E}B_{\frac{1}{t}}B_{\frac{1}{s}}=ts \min\left( \frac{1}{s},\,\frac{1}{t} \right) = ts \frac{1}{\max \left(s,\,t\right)} = \min \left(s,\,t\right)
+       \qedhere
+   \end{equation*}
+\end{proof}
+\begin{lemma}
+    Suppose \(B_{t}\) is a pre-Brownian motion, then \(X_{t} = X_{1} - X_{1-t}\) is a pre-Brownian for \(0\leq t \leq 1\).
+\end{lemma}
+\begin{proof}
+   First, it's clear that \(X_{t}\) is a Gaussian process, as a linear transformation of the Gaussian process \(B_{t}\). Then it's enough to calculate it's auto-covariance function:
+   \begin{equation*}
+       \mathrm{E}X_{s}X_{t} = \mathrm{E}X_{1}^{2} -\mathrm{E}X_{1}X_{1-s} - \mathrm{E}X_{1}X_{1-t} + \mathrm{E}X_{1-s}X_{1-t}
+   \end{equation*}
+   We note that for \(0\leq t\leq 1\) we have \(1-s,\,1-t \leq 1\). This implies that:
+  \begin{gather*}
+      \mathrm{E}X_{1}^{2} -\mathrm{E}X_{1}X_{1-s} - \mathrm{E}X_{1}X_{1-t} + \mathrm{E}X_{1-s}X_{1-t} = \\ = 1 - \left(1-s\right) - \left(1-t\right) + \min \left(1-s,\,1-t\right) = \\ =  s + t - \max \left(s,\,t\right) = \min \left(s,\,t\right)
+      \qedhere
+  \end{gather*}
+\end{proof}
+
+We now combine these two lemmas into the following argument: Since \(B_{t}\) is a Brownian motion, it's also a pre-Brownian motion, and thus by the first lemma, \(tB_{\frac{1}{t}}\) is a pre-Brownian motion for \(t > 0\). Then, by applying the second lemma on \(tB_{\frac{1}{t}}\) we conclude that \(X_{t} = B_{1}-\left(1-t\right)B_{\frac{1}{1-t}}\) is a pre-Brownian motion for \(0 \leq t < 1\). Lastly, since all the sample paths of \(B_{t}\) are continuous,
+then so are the sample paths of \(X_{t}\) for \(0 \leq t < 1\), as all these transformations are continuous in \(t\). This implies \(X_{t}\) is a Brownian motion, as required.
+
+\section{Exercise 2}
+We use the code in our Github repository\footnote{https://github.com/MarkSverdlov/stochastic-processes-exercise-2.git} to simulate \(10\) sample paths of a Brownian motion for \(1\) second. See figure~\ref{fig:brownian-motion} for the plot.We want to estimate the box-counting dimension of the sample path. First, we state its definition:
+\begin{definition}
+    Suppose \(C\) is some subset of \(\mathbb{R}^{2}\). We fix some \(\epsilon>0\) and define \(N_{\epsilon}\left(C\right)\) to be the number of cells of the shape \(\left[m \epsilon,\,\left(m+1\right) \epsilon\right) \times \left[k \epsilon,\,\left(k+1\right) \epsilon\right)\) that \(C\) intersects with, where \(m,\,k \in \mathbb{Z}\). We then define the box-counting dimension of the set \(C\) as the limit:
+    \begin{equation*}
+        \lim_{\epsilon\rightarrow 0} \frac{\log \left(N_{\epsilon}\left(C\right)\right)}{\log \left(\frac{1}{\epsilon}\right)}
+    \end{equation*}
+    provided it exists.
+\end{definition}
+
+We may estimate the box-counting dimensions by calculating \(\frac{\log \left(N_{\epsilon}\left(C\right)\right)}{\log \left(\frac{1}{\epsilon}\right)}
+\) for small \(\epsilon >0\). To demonstrate this, we plot \(\frac{\log \left(N_{\epsilon}\left(C\right)\right)}{\log \left(\frac{1}{\epsilon}\right)}
+\) for small \(\epsilon\) and compare it with the theoretically known box-counting dimension of a Brownian motion sample path which is (a.s.) \(\frac{3}{2}\), see figure~\ref{fig:box-dim}.
+
+\begin{figure}
+    \includegraphics{browinan_motion.png}
+    \caption{This shows \(10\) sample paths of a Brownian motion over \(\left[0,\,1\right]\)}~\label{fig:brownian-motion}
+\end{figure}
+
+\begin{figure}
+    \includegraphics{box_dimension.png}
+    \caption{This is a plot of the estimate to the box-counting dimesntion of a Brownian motion sample paths for diffreent \(\epsilon\)s. The theoretical box-counting dimension is plotted as a broken line.}~\label{fig:box-dim}
+\end{figure}
+
+\end{document}
