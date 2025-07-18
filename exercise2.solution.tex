@@ -125,4 +125,18 @@ We may estimate the box-counting dimensions by calculating \(\frac{\log \left(N_
     \caption{This is a plot of the estimate to the box-counting dimesntion of a Brownian motion sample paths for diffreent \(\epsilon\)s. The theoretical box-counting dimension is plotted as a broken line.}~\label{fig:box-dim}
 \end{figure}
 
+
+\section{Exercise 3}
+We use the following algorithm to simulate fractional Brownian motion: First, we fix the time-points we want to find the location of the fractional Brownian motion at. Then, we compute the covariance matrix of the fractional Brownian motion at these time points using the formula that defines it, and denote it by \(\Sigma\). Finally, we calculate \(L = \sqrt{\Sigma}\) using some common algorithm, and we employ the fact that if \(V\) is a Gaussian vector distributed as
+\(\mathcal{N}\left(0,\,I\right)\) then \(Lv \sim \mathcal{N}\left(0,\,L^{\top}L\right)\), so by sampling \(V\) and then computing \(Lv\) we get s sample of the fractional Brownian motion.
+
+We plot \(10\) samples of fractional Brownian motion for \(H=0.7\) over \(\left[0,\,1\right]\) using this algorithm (see figure~\ref{fig:fractional-brownian-motion}), and also calculate the mean squared displacement of these \(10\) samples. Theoretically, since these are \(10\) independent samples, their mean squared displacement from the origin should be a good estimate to the process point variance, that is \(t^{2H}\), by definition. We therefore also plot this theoretical curve and
+observe that the mean squared displacement is close it in actuality.
+
+
+\begin{figure}
+    \includegraphics{fractional_brownian_motion.png}
+    \caption{The first ax shows ten sample paths of a fractional Brownian motion with \(H=0.7\). The second ax shows the mean squared displacement of these \(10\) samples, together with its theoretical value \(t^{2H}\) that is plotted as a broken line}~\label{fig:fractional-brownian-motion}
+\end{figure}
+
 \end{document}
