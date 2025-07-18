@@ -57,7 +57,7 @@ def linear(t: float, n: int = 1000) -> pd.Series:
 
 if __name__ == "__main__":
     t = 1
-    np.random.seed(42)
+    np.random.seed(18)
     N = 10
     simulation_resolution = int(1e6)
     plt.style.use("ggplot")
