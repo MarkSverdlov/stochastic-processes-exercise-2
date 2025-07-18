@@ -65,8 +65,9 @@ if __name__ == "__main__":
     for _ in range(N):
         locations = simulate(t, n=simulation_resolution)
         ax.plot(locations, label=f"Simulation {N - _}", markersize=0.5, linewidth=0.5)
-    ax.set_title(f"10 Sample paths of a Brownian Motion")
+    ax.set_title(f"10 Sample Paths of a Brownian Motion", fontsize=10)
     ax.set_xlabel("Time", fontsize=8)
+    fig.tight_layout()
     fig.savefig("browinan_motion.png")
 
 
