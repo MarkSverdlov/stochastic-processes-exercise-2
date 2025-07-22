@@ -55,7 +55,7 @@
         X_{t} = B_{1} - \left( a+bt \right)B_{\frac{1}{1-t}}
     \end{equation*}
 
-A necessary condition for \(X_{t}\) to be Brownian, is that for any \(0\leq t < 1\) we have \(\mathrm{Var}X_{t} = t\). We first note that \(\frac{1}{1-t} \geq 1\) and therefore \(B_{\frac{1}{1-t}}-B_{1}\) and \(B_{1}\)
+A necessary condition for \(X_{t}\) to be Brownian, is that for any \(0\leq t < 1\) we have \(\mathrm{Var}X_{t} = t\). We first note that \(\frac{1}{1-t} \geq 1\) and therefore \(B_{\frac{1}{1-t}}-B_{1}\) and \(B_{1}\) are independent. Therefore:
 \begin{equation*}
     \mathrm{Var}X_{t} = \mathrm{Var} \left(-\left(a+bt\right)\left(B_{\frac{1}{1-t}}-B_{1}\right)+\left(1-a-bt\right)B_{1}\right)=\left(a+bt\right)^{2}\left(\frac{1}{1-t}-1\right)+\left(1-a-bt\right)^{2}
 \end{equation*}
@@ -77,7 +77,7 @@ We now want to show that for \(a=1\) and \(b=-1\), \(X_{t}\) is a Brownian motio
     Suppose \(B_{t}\) is a pre-Brownian motion, then \(X_{t}=tB_{\frac{1}{t}}\) is s pre-Brownian motion for \(t>0\).
 \end{lemma}
 \begin{proof}
-   First, it's clear that \(X_{t}\) is a Gaussian process, as a linear transformation of the Gaussian process \(B_{t}\). Then it's enough to calculate it's auto-covariance function:
+   First, it's clear that \(X_{t}\) is a Gaussian process, as a linear transformation of the Gaussian process \(B_{t}\). Then it's enough to calculate its auto-covariance function:
    \begin{equation*}
        \mathrm{E}X_{t}X_{s} = ts \mathrm{E}B_{\frac{1}{t}}B_{\frac{1}{s}}=ts \min\left( \frac{1}{s},\,\frac{1}{t} \right) = ts \frac{1}{\max \left(s,\,t\right)} = \min \left(s,\,t\right)
        \qedhere
@@ -87,7 +87,7 @@ We now want to show that for \(a=1\) and \(b=-1\), \(X_{t}\) is a Brownian motio
     Suppose \(B_{t}\) is a pre-Brownian motion, then \(X_{t} = X_{1} - X_{1-t}\) is a pre-Brownian for \(0\leq t \leq 1\).
 \end{lemma}
 \begin{proof}
-   First, it's clear that \(X_{t}\) is a Gaussian process, as a linear transformation of the Gaussian process \(B_{t}\). Then it's enough to calculate it's auto-covariance function:
+   First, it's clear that \(X_{t}\) is a Gaussian process, as a linear transformation of the Gaussian process \(B_{t}\). Then it's enough to calculate its auto-covariance function:
    \begin{equation*}
        \mathrm{E}X_{s}X_{t} = \mathrm{E}X_{1}^{2} -\mathrm{E}X_{1}X_{1-s} - \mathrm{E}X_{1}X_{1-t} + \mathrm{E}X_{1-s}X_{1-t}
    \end{equation*}
@@ -122,21 +122,21 @@ We may estimate the box-counting dimensions by calculating \(\frac{\log \left(N_
 
 \begin{figure}
     \includegraphics{box_dimension.png}
-    \caption{Plot of the estimate to the box-counting dimension of a Brownian motion sample paths for different \(\epsilon\)s. The theoretical box-counting dimension is plotted as a broken line.}~\label{fig:box-dim}
+\caption{Plot of the estimate to the box-counting dimension of a Brownian motion sample paths for different \(\epsilon\)s. The theoretical box-counting dimension is plotted as a broken line. Note that the logarithm used in the \(x\)-axis is of base \(10\).}~\label{fig:box-dim}
 \end{figure}
 
 
 \section{Exercise 3}
 We use the following algorithm to simulate fractional Brownian motion: First, we fix the time-points we want to find the location of the fractional Brownian motion at. Then, we compute the covariance matrix of the fractional Brownian motion at these time points using the formula that defines it, and denote it by \(\Sigma\). Finally, we calculate \(L = \sqrt{\Sigma}\) using some common algorithm, and we employ the fact that if \(V\) is a Gaussian vector distributed as
-\(\mathcal{N}\left(0,\,I\right)\) then \(Lv \sim \mathcal{N}\left(0,\,L^{\top}L\right)\), so by sampling \(V\) and then computing \(Lv\) we get s sample of the fractional Brownian motion.
+\(\mathcal{N}\left(0,\,I\right)\) then \(Lv \sim \mathcal{N}\left(0,\,L^{\top}L\right)\), so by sampling \(V\) and then computing \(Lv\) we get a sample of the fractional Brownian motion for the chosen time-points.
 
-We plot \(10\) samples of fractional Brownian motion for \(H=0.7\) over \(\left[0,\,1\right]\) using this algorithm (see figure~\ref{fig:fractional-brownian-motion}), and also calculate the mean squared displacement of these \(10\) samples. Theoretically, since these are \(10\) independent samples, their mean squared displacement from the origin should be a good estimate to the process point variance, that is \(t^{2H}\), by definition. We therefore also plot this theoretical curve and
+We plot \(10\) samples of fractional Brownian motion for \(H=0.7\) over \(\left[0,\,1\right]\) using this algorithm (see figure~\ref{fig:fractional-brownian-motion}), and also calculate the mean squared displacement of these \(10\) samples. Theoretically, since these are \(10\) independent samples, their mean squared displacement from the origin should be a good estimate to the variance of the process at each point, that is \(t^{2H}\), by definition. We therefore also plot this theoretical curve and
 observe that the mean squared displacement is close it in actuality.
 
 
 \begin{figure}
     \includegraphics{fractional_brownian_motion.png}
-    \caption{The first ax shows ten sample paths of a fractional Brownian motion with \(H=0.7\). The second ax shows the mean squared displacement of these \(10\) samples, together with its theoretical value \(t^{2H}\) that is plotted as a broken line}~\label{fig:fractional-brownian-motion}
+    \caption{The first axis shows ten sample paths of a fractional Brownian motion with \(H=0.7\). The second axis shows the mean squared displacement of these \(10\) samples, together with its theoretical value \(t^{2H}\) that is plotted as a broken line}~\label{fig:fractional-brownian-motion}
 \end{figure}
 
 \end{document}
